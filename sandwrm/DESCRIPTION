@@ -1,10 +1,12 @@
 Package: sandwrm
-Title: What the Package Does (One Line, Title Case)
+Title: Spatial Analysis of Neighborhood size and Diversity with the WRight Malecot model
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person("ZB", "Hancock", email="hancockz@umich.edu", role = c("aut", "cre")
+           ))
+    person("N", "Chen", email="nianlinc@umich.edu", role = c("aut", "cre"))
+    person("GS", "Bradburd", email="gbradburd@umich.edu", role=c("aut", "cre"))
+Description: A method for estimating various quantities of interest in spatial population genetic inference including Wright's neighborhood size and deep-time diversity using a Bayesian approach. This package contains code for running the analysis, example data, and data visualization tools.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
