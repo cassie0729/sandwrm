@@ -1,4 +1,3 @@
-stanBlock <- "
 functions {
 	matrix probHom(int N, real k, real s, real m, real nbhd, real inDeme, real nugget, matrix geoDist) {
 		matrix[N,N] pHom = rep_matrix(0,N,N);
@@ -18,6 +17,7 @@ functions {
 		return pHom + nugMat;	
 	}
 }
+
 data {
 	int<lower=2> N; 	  					// number of samples
 	int<lower=N+1> L;	    			// number of independent loci
@@ -31,13 +31,15 @@ transformed data {
 	matrix[N,N] hom_scl = (hom-scl_min)/scl_max;				// n.loci multiplied by the sample covariance
 	matrix[N,N] Lhom_scl = L * hom_scl;				// n.loci multiplied by the sample covariance
 }
+
 parameters {
-	real<lower=0> nbhd;				// Wright's neighborhood size
+	real<lower=0> nbhd;				// Wrights neighborhood size
 	real<lower=-25,upper=0> logm;				// scaled migration rate
 	real<lower=-5,upper=0> loginDeme;			// within deme p(IBD)
 	real<lower=0,upper=1> s;				// minimum rate of IBD
 	real<lower=-25,upper=-1> lognugget;			// nugget
 }
+
 transformed parameters {
 	real m = exp(logm);
 	real inDeme = exp(loginDeme);
@@ -45,6 +47,7 @@ transformed parameters {
 	matrix[N,N] pHom = probHom(N, k, s, m, nbhd, inDeme, nugget, geoDist);					// probability of being homozygous
 	matrix[N,N] pHom_scl = (pHom-scl_min)/scl_max;					// probability of being homozygous
 }
+
 model {
 	s ~ beta(1,0.1);					// prior on minimum relatedness
 	logm ~ normal(-5,1);					// prior on scaled migration rate
@@ -53,4 +56,3 @@ model {
 	lognugget ~ normal(0,1);				// prior on nugget
 	Lhom_scl ~ wishart(L, pHom_scl);			// likelihood function
 }
-"
